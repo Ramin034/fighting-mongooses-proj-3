@@ -1,0 +1,82 @@
+;; fighting_mongooses_project3.lisp
+;; Project 3 - Functional Programming with Common Lisp
+;; Team: Fighting Mongooses
+;;
+;;Unfinished functions return NIL for now so the file still loads.
+
+
+;;; ============================================================
+;;; 3. SET OPERATIONS  (Ramin)
+;;; ============================================================
+
+(defun set-member (set item)
+  nil)
+
+(defun set-union (set-1 set-2)
+  nil)
+
+(defun set-intersection (set-1 set-2)
+  nil)
+
+(defun set-diff (set-1 set-2)
+  nil)
+
+(defun set-symmetric-diff (set-1 set-2)
+  nil)
+
+;;; ============================================================
+;;; 4. BOOLEAN LOGIC  ()
+;;; ============================================================
+
+(defun boolean-xor (a b)
+  nil)
+
+(defun boolean-implies (a b)
+  nil)
+
+(defun boolean-iff (a b)
+  nil)
+
+(defun boolean-eval (exp)
+  nil)
+
+(defun boolean-simplify (exp)
+  nil)
+
+;;; ============================================================
+;;; 5. RECURSIVE LIST PROCESSING  ()
+;;; ============================================================
+
+(defun list-reverse (lst)
+  nil)
+
+(defun list-flatten (lst)
+  nil)
+
+(defun list-remove-duplicates (lst)
+  nil)
+
+(defun list-palindrome (lst)
+  nil)
+
+
+;;; ============================================================
+;;; 6. MERGE SORT  ()
+;;; ============================================================
+
+(defun merge-sort (lst predicate)
+  nil)
+
+
+;;; ============================================================
+;;; 7. STUDENT COURSE ANALYZER  (Ramin)
+;;; ============================================================
+
+(defun get-student-courses (students student-id)
+  nil)
+
+(defun student-average (students student-id)
+  nil)
+
+(defun common-courses (students student-1 student-2)
+  nil)
