@@ -47,6 +47,10 @@
 (check "set-diff" "'(1 2) '(1 2)" nil (set-diff '(1 2) '(1 2)))
 (check "set-diff" "'() '(1 2)" nil (set-diff '() '(1 2)))
 
+(check "set-union" "'(1 2) '(2 4)" '(1 2 4) (set-union '(1 2) '(2 4)))
+(check "set-union" "'(1 3) '(2 4)" '(1 3 2 4) (set-union '(1 3) '(2 4)))
+(check "set-union" "'() '(1 2)" '(1 2) (set-union '() '(1 2)))
+
 
 ;;; ============================================================
 ;;; BOOLEAN LOGIC ()

@@ -14,8 +14,13 @@
     ((equal (car set) item) t)          ; checks if the first element matches
     (t (set-member (cdr set) item))))   ; else check the rest
 
+;; helper function help from claude
+(defun set-join (list-1 list-2)
+    (cond ((not list-1) list-2)
+            (t (cons (car list-1) (set-join (cdr list-1) list-2)))))
+
 (defun set-union (set-1 set-2)
-  nil)
+  (set-join set-1 (set-diff set-2 set-1)))
 
 (defun set-intersection (set-1 set-2)
   (cond ((not set-1) nil)                                           ; empty nothing in common
