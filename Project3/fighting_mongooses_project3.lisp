@@ -35,7 +35,7 @@
         (t (set-diff (cdr set-1) set-2))))                  ; else skip it
 
 (defun set-symmetric-diff (set-1 set-2)
-  nil)
+  (set-join (set-diff set-1 set-2) (set-diff set-2 set-1)))
 
 ;;; ============================================================
 ;;; 4. BOOLEAN LOGIC  ()
