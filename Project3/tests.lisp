@@ -88,3 +88,7 @@
 (check "get-student-courses" "students 101" '(1 2 3) (get-student-courses *students* 101))
 (check "get-student-courses" "students 102" '(1 3) (get-student-courses *students* 102))
 (check "get-student-courses" "students 999" nil (get-student-courses *students* 999))
+
+(check "common-courses" "students 101 104" '(1 2) (common-courses *students* 101 104))
+(check "common-courses" "students 102 103" '(3) (common-courses *students* 102 103))
+(check "common-courses" "students 102 104" '(1) (common-courses *students* 102 104))

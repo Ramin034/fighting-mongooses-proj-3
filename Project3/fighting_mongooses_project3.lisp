@@ -101,4 +101,5 @@
   nil)
 
 (defun common-courses (students student-1 student-2)
-  nil)
+  (set-intersection (get-student-courses students student-1)
+                    (get-student-courses students student-2)))
