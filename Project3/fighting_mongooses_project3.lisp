@@ -18,7 +18,10 @@
   nil)
 
 (defun set-intersection (set-1 set-2)
-  nil)
+  (cond ((not set-1) nil)                                           ; empty nothing in common
+        ((set-member set-2 (car set-1))                             ; first element is in set-2
+        (cons (car set-1) (set-intersection (cdr set-1) set-2)))   ;   keep it + check the rest
+        (t (set-intersection (cdr set-1) set-2))))                  ; not in set-2 -> skip it
 
 (defun set-diff (set-1 set-2)
   nil)

@@ -39,6 +39,10 @@
 (check "set-member" "'(1 2 3) 5" nil (set-member '(1 2 3) 5))
 (check "set-member" "'() 1"      nil (set-member '() 1))
 
+(check "set-intersection" "'(1 2 3) '(2 4 3)" '(2 3) (set-intersection '(1 2 3) '(2 4 3)))
+(check "set-intersection" "'(1 2) '(3 4)" nil (set-intersection '(1 2) '(3 4)))
+(check "set-intersection" "'() '(1 2)" nil (set-intersection '() '(1 2)))
+
 
 ;;; ============================================================
 ;;; BOOLEAN LOGIC ()
