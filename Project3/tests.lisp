@@ -92,3 +92,8 @@
 (check "common-courses" "students 101 104" '(1 2) (common-courses *students* 101 104))
 (check "common-courses" "students 102 103" '(3) (common-courses *students* 102 103))
 (check "common-courses" "students 102 104" '(1) (common-courses *students* 102 104))
+
+(check "list-sum" "'(85 90 78)" 253 (list-sum '(85 90 78)))
+(check "student-average" "students 101" 253/3 (student-average *students* 101))
+(check "student-average" "students 102" 90 (student-average *students* 102))
+(check "student-average" "students 103" 85 (student-average *students* 103))

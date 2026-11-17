@@ -106,7 +106,9 @@
     (t (+ (car numbers) (list-sum (cdr numbers))))))
 
 (defun student-average (students student-id)
-  nil)
+    (let ((pairs (cdr (find-student students student-id))))
+    (/ (list-sum (course-grades pairs))
+    (length pairs))))
 
 (defun common-courses (students student-1 student-2)
   (set-intersection (get-student-courses students student-1)
