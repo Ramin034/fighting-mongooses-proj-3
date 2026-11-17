@@ -85,8 +85,13 @@
 ;;; 7. STUDENT COURSE ANALYZER  (Ramin)
 ;;; ============================================================
 
+(defun find-student (students student-id)
+    (cond ((not students) nil)
+            ((equal (car (car students)) student-id) (car students))
+            (t (find-student (cdr students) student-id))))
+
 (defun get-student-courses (students student-id)
-  nil)
+  ())
 
 (defun student-average (students student-id)
   nil)
