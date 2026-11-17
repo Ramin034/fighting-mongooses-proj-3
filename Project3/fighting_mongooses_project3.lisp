@@ -10,7 +10,9 @@
 ;;; ============================================================
 
 (defun set-member (set item)
-  nil)
+  (cond ((not set)nil)                  ; checks if list is empty
+    ((equal (car set) item) t)          ; checks if the first element matches
+    (t (set-member (cdr set) item))))   ; else check the rest
 
 (defun set-union (set-1 set-2)
   nil)
