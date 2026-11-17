@@ -25,9 +25,9 @@
 
 (defun set-diff (set-1 set-2)
   (cond ((not set-1) nil)
-        ((not (set-member set-2(car set-1)))
-        (cons (car set-1) (set-diff (cdr set-1) set-2)))
-        (t (set-diff (cdr set-1) set-2))))
+        ((not (set-member set-2(car set-1)))                ; first element not in set-2
+        (cons (car set-1) (set-diff (cdr set-1) set-2)))    ; keep it
+        (t (set-diff (cdr set-1) set-2))))                  ; else skip it
 
 (defun set-symmetric-diff (set-1 set-2)
   nil)
