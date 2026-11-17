@@ -85,5 +85,6 @@
 (check "find-student" "students 102" '(102 (1 92) (3 88)) (find-student *students* 102))
 (check "find-student" "students 999" nil (find-student *students* 999))
 
-
 (check "get-student-courses" "students 101" '(1 2 3) (get-student-courses *students* 101))
+(check "get-student-courses" "students 102" '(1 3) (get-student-courses *students* 102))
+(check "get-student-courses" "students 999" nil (get-student-courses *students* 999))

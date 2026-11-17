@@ -95,7 +95,7 @@
         (t (cons (car (car pairs))(course-ids (cdr pairs))))))          ; first course id then rest
 
 (defun get-student-courses (students student-id)
-  ())
+  (course-ids (cdr (find-student students student-id))))
 
 (defun student-average (students student-id)
   nil)
