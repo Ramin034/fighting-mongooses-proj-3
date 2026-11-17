@@ -24,7 +24,10 @@
         (t (set-intersection (cdr set-1) set-2))))                  ; not in set-2 -> skip it
 
 (defun set-diff (set-1 set-2)
-  nil)
+  (cond ((not set-1) nil)
+        ((not (set-member set-2(car set-1)))
+        (cons (car set-1) (set-diff (cdr set-1) set-2)))
+        (t (set-diff (cdr set-1) set-2))))
 
 (defun set-symmetric-diff (set-1 set-2)
   nil)

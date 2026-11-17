@@ -43,6 +43,10 @@
 (check "set-intersection" "'(1 2) '(3 4)" nil (set-intersection '(1 2) '(3 4)))
 (check "set-intersection" "'() '(1 2)" nil (set-intersection '() '(1 2)))
 
+(check "set-diff" "'(1 2 3) '(2 4)" '(1 3) (set-diff '(1 2 3) '(2 4)))
+(check "set-diff" "'(1 2) '(1 2)" nil (set-diff '(1 2) '(1 2)))
+(check "set-diff" "'() '(1 2)" nil (set-diff '() '(1 2)))
+
 
 ;;; ============================================================
 ;;; BOOLEAN LOGIC ()
