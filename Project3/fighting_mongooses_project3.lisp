@@ -97,6 +97,10 @@
 (defun get-student-courses (students student-id)
   (course-ids (cdr (find-student students student-id))))
 
+(defun course-grades (pairs)
+    (cond ((not pairs) nil)
+        (t (cons (second (car pairs)) (course-grades (cdr pairs))))))
+
 (defun student-average (students student-id)
   nil)
 
