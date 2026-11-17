@@ -101,6 +101,10 @@
     (cond ((not pairs) nil)
         (t (cons (second (car pairs)) (course-grades (cdr pairs))))))
 
+(defun list-sum (numbers)
+    (cond ((not numbers) 0)
+    (t (+ (car numbers) (list-sum (cdr numbers))))))
+
 (defun student-average (students student-id)
   nil)
 
