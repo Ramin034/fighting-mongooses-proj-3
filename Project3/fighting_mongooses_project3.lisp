@@ -86,9 +86,13 @@
 ;;; ============================================================
 
 (defun find-student (students student-id)
-    (cond ((not students) nil)
-            ((equal (car (car students)) student-id) (car students))
-            (t (find-student (cdr students) student-id))))
+    (cond ((not students) nil)                                          ; no students found return nil
+            ((equal (car (car students)) student-id) (car students))    ; Id match return student
+            (t (find-student (cdr students) student-id))))              ; else check the rest
+
+(defun course-ids (pairs)
+(cond ((not pairs) nil)                                                 ; no pairs
+        (t (cons (car (car pairs))(course-ids (cdr pairs))))))          ; first course id then rest
 
 (defun get-student-courses (students student-id)
   ())
