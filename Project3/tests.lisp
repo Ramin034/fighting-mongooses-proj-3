@@ -13,6 +13,10 @@
 ;;;   actual         what the function really returned
 ;;; ------------------------------------------------------------
 
+
+;; this function is for a cleaner output for tests
+;; Used Claude for this function due to not knowing how to properly create
+;; a clean formatted test result
 (defun check (function-name input expected actual)
   (format t "Function: ~a~%" function-name)
   (format t "Input:    ~a~%" input)
