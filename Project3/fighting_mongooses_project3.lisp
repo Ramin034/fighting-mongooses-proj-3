@@ -38,7 +38,7 @@
   (set-join (set-diff set-1 set-2) (set-diff set-2 set-1)))
 
 ;;; ============================================================
-;;; 4. BOOLEAN LOGIC  ()
+;;; 4. BOOLEAN LOGIC  (Keith)
 ;;; ============================================================
 
 (defun boolean-xor (a b)
@@ -57,7 +57,7 @@
   nil)
 
 ;;; ============================================================
-;;; 5. RECURSIVE LIST PROCESSING  ()
+;;; 5. RECURSIVE LIST PROCESSING  (Keith)
 ;;; ============================================================
 
 (defun list-reverse (lst)
