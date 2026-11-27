@@ -44,7 +44,6 @@
 (defun boolean-xor (a b)
   (and (or a b)                 ; at least on operand is true
        (not (and a b))))        ; but not both. NOT always returns T or NIL, so the whole AND returns T or NIL.
-    (not (and a b))))
 
 (defun boolean-implies (a b)
   (not (and a (not b))))        ; NIL only for a=T, b=NIL; T otherwise.
@@ -53,7 +52,6 @@
   (not (boolean-xor a b)))        ; T only for a=b, NIL otherwise.
 
 (defun boolean-eval (exp)
-  (defun boolean-eval (exp)
   (cond ((equal exp t) t)                      ; base case: constant true
         ((not exp) nil)                        ; base case: constant false (NIL)
         (t
@@ -88,7 +86,7 @@
             ;; *Added by Claude.*
             ;; Unknown operator. Spec says inputs are well-formed, so
             ;; this should never happen; return NIL to be safe.
-            (t nil)))))))
+            (t nil))))))
 
 ;; *Helper method added by Claude*
 (defun bool-compound-p (exp)
