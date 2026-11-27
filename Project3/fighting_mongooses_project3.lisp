@@ -42,35 +42,138 @@
 ;;; ============================================================
 
 (defun boolean-xor (a b)
-  nil)
+  (and (or a b)                 ; at least on operand is true
+       (not (and a b))))        ; but not both. NOT always returns T or NIL, so the whole AND returns T or NIL.
+    (not (and a b))))
 
 (defun boolean-implies (a b)
-  nil)
+  (not (and a (not b))))        ; NIL only for a=T, b=NIL; T otherwise.
 
 (defun boolean-iff (a b)
-  nil)
+  (not (boolean-xor a b)))        ; T only for a=b, NIL otherwise.
 
 (defun boolean-eval (exp)
-  nil)
+  (defun boolean-eval (exp)
+  (cond ((equal exp t) t)                      ; base case: constant true
+        ((not exp) nil)                        ; base case: constant false (NIL)
+        (t
+         ;; It's a list like (op x) or (op x y). Pull out the pieces once.
+         (let ((op (first exp)))               ; operator symbol, e.g. AND
+           (cond
+             ;; NOT takes one operand: evaluate it, then flip it.
+             ((equal op 'not)
+              (not (boolean-eval (second exp))))
+
+             ;; AND: both evaluated operands must be true.
+             ((equal op 'and)
+              (and (boolean-eval (second exp))
+                   (boolean-eval (third exp))))
+
+             ;; OR: at least one evaluated operand must be true.
+             ((equal op 'or)
+              (or (boolean-eval (second exp))
+                  (boolean-eval (third exp))))
+
+             ;; XOR / IMPLIES / IFF: evaluate both operands, then reuse
+             ;; the helper functions written above.
+             ((equal op 'xor)
+              (boolean-xor (boolean-eval (second exp))
+                           (boolean-eval (third exp))))
+             ((equal op 'implies)
+              (boolean-implies (boolean-eval (second exp))
+                               (boolean-eval (third exp))))
+             ((equal op 'iff)
+              (boolean-iff (boolean-eval (second exp))
+                           (boolean-eval (third exp))))
+            ;; *Added by Claude.*
+            ;; Unknown operator. Spec says inputs are well-formed, so
+            ;; this should never happen; return NIL to be safe.
+            (t nil)))))))
+
+;; *Helper method added by Claude*
+(defun bool-compound-p (exp)
+  (cond ((equal exp t) nil)            ; constant T is not compound
+        ((not exp) nil)                ; constant NIL is not compound
+        (t (not (equal (list-flatten (list exp))
+                       (list exp))))))
+
+;; *Helper method added by Claude*
+(defun bool-simplify-node (exp)
+  (if (not (bool-compound-p exp))
+      exp                                           ; T / NIL / variable
+      (let ((op (first exp)))
+        (if (equal op 'not)
+            ;; ---------- NOT (one operand) ----------
+            (let ((a (bool-simplify-node (second exp))))
+              (if (and (bool-compound-p a)          ; operand is itself
+                       (equal (first a) 'not))      ; a NOT expression?
+                  (second a)                        ; (not (not A)) => A
+                  (list 'not a)))                   ; otherwise keep it
+            ;; ---------- two-operand operators ----------
+            (let ((a (bool-simplify-node (second exp)))   ; simplified left
+                  (b (bool-simplify-node (third exp))))   ; simplified right
+              (cond
+                ;; AND rules
+                ((equal op 'and)
+                 (cond ((equal a t) b)              ; (and t A)   => A
+                       ((equal b t) a)              ; (and A t)   => A
+                       ((not a) nil)                ; (and nil A) => NIL
+                       ((not b) nil)                ; (and A nil) => NIL
+                       ((equal a b) a)              ; (and A A)   => A
+                       (t (list 'and a b))))        ; no rule: rebuild
+                ;; OR rules
+                ((equal op 'or)
+                 (cond ((not a) b)                  ; (or nil A) => A
+                       ((not b) a)                  ; (or A nil) => A
+                       ((equal a t) t)              ; (or t A)   => T
+                       ((equal b t) t)              ; (or A t)   => T
+                       ((equal a b) a)              ; (or A A)   => A
+                       (t (list 'or a b))))         ; no rule: rebuild
+                ;; XOR / IMPLIES / IFF have no required rules, so we
+                ;; only simplify inside their operands and keep the
+                ;; operator as-is (preserves structure).
+                (t (list op a b))))))))
 
 (defun boolean-simplify (exp)
-  nil)
+  (let ((simplified (bool-simplify-node exp)))
+    (if (equal simplified exp)
+        simplified                         ; nothing changed: finished
+        (boolean-simplify simplified))))   ; something changed: go again
 
 ;;; ============================================================
 ;;; 5. RECURSIVE LIST PROCESSING  (Keith)
 ;;; ============================================================
 
 (defun list-reverse (lst)
-  nil)
+  (labels ((rev-acc (remaining acc)
+             (if (not remaining)
+                 acc                                   ; base case: done
+                 (rev-acc (cdr remaining)              ; recurse on rest
+                          (cons (car remaining) acc))))) ; push first onto acc
+    (rev-acc lst nil)))                                ; start with empty acc
 
 (defun list-flatten (lst)
-  nil)
+  (cond ((not lst) nil)                                ; base case: empty
+        ((not (car lst))                               ; first is () / NIL:
+         (list-flatten (cdr lst)))                     ;   skip it
+        ((atom (car lst))                              ; first is a plain item:
+         (cons (car lst) (list-flatten (cdr lst))))    ;   keep it + rest
+        (t                                             ; first is a sublist:
+         (set-join (list-flatten (car lst))            ;   flattened sublist
+                   (list-flatten (cdr lst))))))        ;   + flattened rest
 
 (defun list-remove-duplicates (lst)
-  nil)
+  (labels ((walk (remaining seen)
+             (cond ((not remaining) nil)                    ; base case
+                   ((set-member seen (car remaining))       ; already kept?
+                    (walk (cdr remaining) seen))            ;   skip it
+                   (t (cons (car remaining)                 ; new: keep it
+                            (walk (cdr remaining)
+                                  (cons (car remaining) seen))))))) ; remember it
+    (walk lst nil)))
 
 (defun list-palindrome (lst)
-  nil)
+  (equal lst (list-reverse lst)))
 
 
 ;;; ============================================================
