@@ -2,7 +2,7 @@
 ;; Project 3 - Functional Programming with Common Lisp
 ;; Team: Fighting Mongooses
 ;;
-;;Unfinished functions return NIL for now so the file still loads.
+
 
 
 ;;; ============================================================
@@ -175,11 +175,26 @@
 
 
 ;;; ============================================================
-;;; 6. MERGE SORT  ()
+;;; 6. MERGE SORT  (Zaven)
 ;;; ============================================================
 
 (defun merge-sort (lst predicate)
-  nil)
+  (labels ((split-halves (slow fast left)
+             (if (and fast (cdr fast))
+                 (split-halves (cdr slow) (cdr (cdr fast))
+                               (cons (car slow) left))
+                 (list (list-reverse left) slow)))
+           (merge-halves (left right)
+             (cond ((not left) right)
+                   ((not right) left)
+                   ((funcall predicate (car left) (car right))
+                    (cons (car left) (merge-halves (cdr left) right)))
+                   (t (cons (car right) (merge-halves left (cdr right)))))))
+    (if (and lst (cdr lst))
+        (let ((halves (split-halves lst lst nil)))
+          (merge-halves (merge-sort (first halves) predicate)
+                        (merge-sort (second halves) predicate)))
+        lst)))
 
 
 ;;; ============================================================

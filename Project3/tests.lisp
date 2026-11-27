@@ -185,6 +185,14 @@
 ;;; ============================================================
 
 (check "merge-sort" "'(2 1 5 0) #'<" '(0 1 2 5) (merge-sort '(2 1 5 0) #'<))
+(check "merge-sort" "'(2 1 5 0) #'>" '(5 2 1 0) (merge-sort '(2 1 5 0) #'>))
+(check "merge-sort" "'(3 1 3 2 1) #'<" '(1 1 2 3 3) (merge-sort '(3 1 3 2 1) #'<))
+(check "merge-sort" "'() #'<" nil (merge-sort '() #'<))
+(check "merge-sort" "'(7) #'<" '(7) (merge-sort '(7) #'<))
+
+(let ((original (list 3 1 2)))
+  (merge-sort original #'<)
+  (check "merge-sort (input unchanged)" "(3 1 2) #'<" '(3 1 2) original))
 
 
 ;;; ============================================================
